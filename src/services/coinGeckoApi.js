@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const BASE_URL = 'https://api.coingecko.com/api/v3';
-const API_KEY = process.env.NEXT_PUBLIC_COINGECKO_API_KEY; 
+const API_KEY = process.env.NEXT_PUBLIC_COINGECKO_API_KEY;
 
 
 const coinsGeckoAxiosApi = axios.create({
