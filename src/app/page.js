@@ -8,27 +8,32 @@ const HomePage = () => {
     const [coinsList, setCoinsList] = useState([])
     const [filteredList, setFilteredList] = useState([])
     const [searchTerm, setSearchTerm] = useState('')
+    const [page, setPage] = useState(1)
     const [isLoading,setLoading] = useState(false)
     const [error,setError] = useState(null)
     const [success,setSuccess] = useState("")
 
-    useEffect(()=>{
+    const fetchPage = (pageNum) =>{
       setLoading(true)
       setError(null)
       setSuccess(null)
 
-      getCoinGeckoCoins()
+      getCoinGeckoCoins(pageNum)
       .then((data)=>{
         setCoinsList(data)
         setSuccess('Data fetched Successfully')
         setLoading(false)
+        setPage(pageNum)
       })
       .catch((err)=>{
         setError(err.message)
         setSuccess(null)
         setLoading(false)
       })
+    }
 
+    useEffect(()=>{
+      fetchPage(1)
     },[])
 
     useEffect(()=>{
@@ -75,6 +80,12 @@ const HomePage = () => {
                     ))}
                   </tbody>
                 </table>
+                <div className='d-flex justify-content-between mt-3'>
+                    <button className='btn btn-primary' onClick={()=>fetchPage(page-1)} disabled= {page === 1}>Previous</button>
+                      <span>Page:{page}</span>
+                    <button className='btn btn-primary' onClick={()=>fetchPage(page+1)} disabled= {filteredList.length < 10}>Next</button>
+                </div>
+
               </>
             ) :
                 (<p>No coins Found </p>)
