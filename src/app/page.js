@@ -1,3 +1,4 @@
+"use client";
 import {useState,useEffect} from 'react'
 import CoinItem from '@/components/CoinItem'
 import LoadingComponent from '@/components/Loading'
@@ -5,6 +6,8 @@ import getCoinGeckoCoins from '@/services/coinGeckoApi'
 
 const HomePage = () => {
     const [coinsList, setCoinsList] = useState([])
+    const [filteredList, setFilteredList] = useState([])
+    const [searchTerm, setSearchTerm] = useState('')
     const [isLoading,setLoading] = useState(false)
     const [error,setError] = useState(null)
     const [success,setSuccess] = useState("")
@@ -28,15 +31,33 @@ const HomePage = () => {
 
     },[])
 
+    useEffect(()=>{
+      if (searchTerm ===''){
+        setFilteredList(coinsList)
+      }
+      else{
+        const filteredItems = coinsList.filter(
+          (coin)=>
+            coin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        setFilteredList(filteredItems)
+      }
+    }, [searchTerm,coinsList])
+
     return(
       <div className='container mt-4'>
         {error && <div className='alert alert-danger'>{error}</div>}
         {success && <div className='alert alert-success'>{success}</div>}
+
+        <input type='search' className='form-control mb-4' placeholder='Search with name or symbol' value ={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)}  />
+
+
         {isLoading ? 
           <LoadingComponent />
         :
           (
-            coinsList.length > 0 ? (
+            filteredList.length > 0 ? (
               <>
                 <h2>Top CryptoCurrencies by Market Cap</h2>
                 <table className='table table-striped'>
@@ -49,7 +70,7 @@ const HomePage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {coinsList.map((eachCoin)=>(
+                    {filteredList.map((eachCoin)=>(
                       <CoinItem key={eachCoin.id} coin = {eachCoin} />
                     ))}
                   </tbody>
