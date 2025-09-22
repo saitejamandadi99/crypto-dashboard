@@ -33,12 +33,23 @@ export const getCoinGeckoCoins = async  (page = 1) =>{
 
 export const getTrendingAxiosApi = async () =>{
     try {
-        const response =await coinsGeckoAxiosApi.get('/search/trending')
-        return response.data.coins.map((c)=>c.item);
-        
-    } catch (err) {
-        throw new Error(err.message || 'Error in fetching the trending details')
-    }
+    const trendingResponse = await coinsGeckoAxiosApi.get('/search/trending');
+    const trendingIds = trendingResponse.data.coins.map(c => c.item.id).join(',');
+
+    if (!trendingIds) return [];
+
+    const marketResponse = await coinsGeckoAxiosApi.get('/coins/markets', {
+      params: {
+        vs_currency: 'usd',
+        ids: trendingIds,
+        price_change_percentage: '24h'
+      }
+    });
+
+    return marketResponse.data;
+  } catch (err) {
+    throw new Error(err.message || 'Error fetching full trending market data');
+  }
 
 }
 

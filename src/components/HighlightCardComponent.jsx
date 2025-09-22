@@ -1,5 +1,11 @@
 const HighlightCardComponent = ({ coin }) => {
   const priceChange = coin.price_change_percentage_24h;
+
+  const formatNumber = (num) => {
+    if (num === null || num === undefined || isNaN(num)) return "N/A";
+    return num.toLocaleString();
+  };
+
   return (
     <div className="card m-2 p-3" style={{ width: "220px" }}>
       <img
@@ -8,25 +14,19 @@ const HighlightCardComponent = ({ coin }) => {
         style={{ width: 40, height: 40, marginBottom: 8 }}
       />
       <h5>
-        {coin.name} ({coin.symbol.toUpperCase()})
+        {coin.name} ({coin.symbol ? coin.symbol.toUpperCase() : "N/A"})
       </h5>
-      <p>Price: ${coin.current_price.toLocaleString()}</p>
+      <p>Price: ${formatNumber(coin.current_price)}</p>
       <p>
         24h Change:{" "}
-        <span style={{ color: priceChange >= 0 ? "green" : 
-            "red" 
-            }}
-        >
-          {priceChange ? 
-          priceChange.toFixed(2) + "%" : 
-          "N/A"
-        }
-        </span>
+        {priceChange !== null && priceChange !== undefined
+          ? priceChange.toFixed(2) + "%"
+          : "N/A"}
       </p>
-      <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
-      <p>24h Volume: ${coin.total_volume.toLocaleString()}</p>
+      <p>Market Cap: {coin.market_cap ? `$${formatNumber(coin.market_cap)}` : "N/A"}</p>
+      <p>24h Volume: {coin.total_volume ? `$${formatNumber(coin.total_volume)}` : "N/A"}</p>
     </div>
   );
 };
 
-export default HighlightCard;
+export default HighlightCardComponent;

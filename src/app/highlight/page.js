@@ -1,10 +1,11 @@
+"use client";
 import { useEffect, useState } from "react";
-import HighlightCard from "./HighlightCard"; // Adjust relative path as needed
+import HighlightCard from "@/components/HighlightCardComponent";
 import {
   getTrendingAxiosApi,
   getMarketCoinsAxiosApi,
 } from "@/services/coinGeckoApi";
-import LoadingComponent from "@/components/Loading"; // Adjust path if needed
+import LoadingComponent from "@/components/Loading"; 
 
 const Highlights = () => {
   const [trending, setTrending] = useState([]);
