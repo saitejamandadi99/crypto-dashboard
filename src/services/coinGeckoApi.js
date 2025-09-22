@@ -11,14 +11,14 @@ const coinsGeckoAxiosApi = axios.create({
     },
 })
 
-const getCoinGeckoCoins = async  () =>{
+const getCoinGeckoCoins = async  (page = 1) =>{
     try{
         const response = await coinsGeckoAxiosApi.get("/coins/markets",{
             params:{
                 vs_currency:'usd', //price in currency
                 order:'market_cap_desc', //sorting in market cap descending (largest first)
                 per_page:10, // pagination per page number of coins.
-                page:1, // page of results to fetch.
+                page:page, // page of results to fetch.
                 price_change_percentage:'24h' //price change in percentage per 24hrs.
             },
         })
