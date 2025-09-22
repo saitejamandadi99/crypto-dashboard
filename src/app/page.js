@@ -2,7 +2,7 @@
 import {useState,useEffect} from 'react'
 import CoinItem from '@/components/CoinItem'
 import LoadingComponent from '@/components/Loading'
-import getCoinGeckoCoins from '@/services/coinGeckoApi'
+import {getCoinGeckoCoins} from '@/services/coinGeckoApi'
 
 const HomePage = () => {
     const [coinsList, setCoinsList] = useState([])

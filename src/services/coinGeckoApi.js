@@ -4,14 +4,14 @@ const BASE_URL = 'https://api.coingecko.com/api/v3';
 const API_KEY = process.env.NEXT_PUBLIC_COINGECKO_API_KEY;
 
 
-export const coinsGeckoAxiosApi = axios.create({
+ const coinsGeckoAxiosApi = axios.create({
     baseURL:BASE_URL,
     headers:{
     'x_cg_pro_api_key':API_KEY,
     },
 })
 
-const getCoinGeckoCoins = async  (page = 1) =>{
+export const getCoinGeckoCoins = async  (page = 1) =>{
     try{
         const response = await coinsGeckoAxiosApi.get("/coins/markets",{
             params:{
