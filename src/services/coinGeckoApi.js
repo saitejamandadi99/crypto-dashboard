@@ -42,7 +42,7 @@ export const getTrendingAxiosApi = async () =>{
 
 }
 
-export const getMarketCoinsAxiosApi = async () =>{
+export const getMarketCoinsAxiosApi = async (params ={}) =>{
     try{
         const response = await coinsGeckoAxiosApi.get('/coins/markets',
             {
@@ -56,6 +56,7 @@ export const getMarketCoinsAxiosApi = async () =>{
             },
             }
         )
+        return response.data;
 
     }
     catch(err){
