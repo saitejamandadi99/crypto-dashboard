@@ -83,7 +83,7 @@ const HomePage = () => {
                 <div className='d-flex justify-content-between mt-3'>
                     <button className='btn btn-primary' onClick={()=>!isLoading && fetchPage(page-1)} disabled= {page === 1 || isLoading}>Previous</button>
                       <span>Page:{page}</span>
-                    <button className='btn btn-primary' onClick={()=>!isLoading &&fetchPage(page+1)} disabled= {filteredList.length < 10 || isLoading}>Next</button>
+                    <button className='btn btn-primary' onClick={()=>!isLoading &&fetchPage(page+1)} disabled= {page === 4 || isLoading}>Next</button>
                 </div>
 
               </>
