@@ -1,4 +1,5 @@
 const CoinItem = ({coin}) =>{
+    const priceChange = coin.price_change_percentage_24h;
     return(
         <tr>
             <td>{coin.market_cap_rank}</td>
@@ -9,10 +10,12 @@ const CoinItem = ({coin}) =>{
                 $ {coin.current_price.toLocaleString()}
             </td>
             <td style={{color:  
-                            coin.price_change_percentage_24h >= 0 ? 'green' : 'red'
+                            priceChange >= 0 ? 'green' : 'red'
                        }}
             >
-                {coin.price_change_percentage_24h.toFixed(2)}%
+                {
+                    priceChange !== null && priceChange !== undefined ? priceChange.toFixed(2) + '%' : 'N/A'
+                }
             </td>
         </tr>
     )
