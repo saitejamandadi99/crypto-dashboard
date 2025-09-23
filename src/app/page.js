@@ -3,6 +3,7 @@ import {useState,useEffect} from 'react'
 import CoinItem from '@/components/CoinItem'
 import LoadingComponent from '@/components/Loading'
 import {getCoinGeckoCoins} from '@/services/coinGeckoApi'
+import Navbar from '@/components/Navbar';
 
 const HomePage = () => {
     const [coinsList, setCoinsList] = useState([])
@@ -52,6 +53,7 @@ const HomePage = () => {
 
     return(
       <div className='container mt-4'>
+        <Navbar />
         {error && <div className='alert alert-danger'>{error}</div>}
         {success && <div className='alert alert-success'>{success}</div>}
 

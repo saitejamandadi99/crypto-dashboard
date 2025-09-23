@@ -6,6 +6,7 @@ import {
   getMarketCoinsAxiosApi,
 } from "@/services/coinGeckoApi";
 import LoadingComponent from "@/components/Loading"; 
+import Navbar from "@/components/Navbar";
 
 const Highlights = () => {
   const [trending, setTrending] = useState([]);
@@ -62,6 +63,7 @@ const Highlights = () => {
 
   return (
     <div className="my-3">
+      <Navbar />
       <h3>Trending Coins</h3>
       <div className="d-flex flex-wrap">
         {trending.map((coin) => (
